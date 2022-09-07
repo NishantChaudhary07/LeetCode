@@ -1,11 +1,5 @@
 class Solution {
-    public static int fact(int n){
-		int fact=1;
-		for(int i=n;i>=1;i--){
-           fact*=i;
-		}
-		return fact;
-	}
+
     public int subarraysDivByK(int[] arr, int k) {
         int len=arr.length;
 			int[] rem=new int[k];
