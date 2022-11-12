@@ -12,9 +12,7 @@ class Solution {
         while(n%5==0){
             n/=5;
          }
-        if(n==1)
-        return true;
-        else
-            return false;
+        
+            return n==1;
     }
 }
