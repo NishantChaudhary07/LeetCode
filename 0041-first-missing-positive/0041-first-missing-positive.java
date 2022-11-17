@@ -16,7 +16,6 @@ class Solution {
              --idx;
              if(nums[idx]>=0){
                  nums[idx]=-nums[idx];
-                  // System.out.println(nums[i]);
              }
              
         }
