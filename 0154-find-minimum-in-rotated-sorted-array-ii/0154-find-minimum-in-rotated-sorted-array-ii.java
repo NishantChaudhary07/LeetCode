@@ -8,13 +8,13 @@ class Solution {
             if(nums[mid]<min){
                 min=nums[mid];
             }
-           
+            
             
             if(nums[end]<nums[mid]){
                 start=mid+1;
             }
             else if(nums[end]>nums[mid]){
-                end=mid;
+                end=mid-1;
             }
             else
                 end--;
