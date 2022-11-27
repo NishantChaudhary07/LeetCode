@@ -7,10 +7,11 @@ class Solution {
         
         while(lst.size()>1){
             Collections.sort(lst);
-            int last=lst.get(lst.size()-1);
-            int seclast=lst.get(lst.size()-2);
-            lst.remove(lst.size()-1);
-            lst.remove(lst.size()-1);
+            int size=lst.size();
+            int last=lst.get(size-1);
+            int seclast=lst.get(size-2);
+            lst.remove(size-1);
+            lst.remove(size-2);
             if(last!=seclast){
                 lst.add(last-seclast);
             }
