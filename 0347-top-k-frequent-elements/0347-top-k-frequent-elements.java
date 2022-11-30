@@ -13,7 +13,7 @@ class Solution {
         for(int key:map.keySet()){
             lst.add(map.get(key));
         }
-        System.out.print(lst);
+        
         int[] res=new int[k];
         Collections.sort(lst);
         int i=lst.size()-1;
@@ -21,7 +21,7 @@ class Solution {
           for(int key:map.keySet()){
               if(map.get(key)==lst.get(i)){
                   res[res.length-k]=key;
-                  map.put(key,-1);
+                  map.remove(key);
                   break;
               }
           } 
