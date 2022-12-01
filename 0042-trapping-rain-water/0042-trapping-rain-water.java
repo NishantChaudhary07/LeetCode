@@ -1,19 +1,20 @@
 class Solution {
     public int trap(int[] height) {
-       Stack<Integer> st=new Stack<>();
-        int totalwater=0;
-        
-        for(int i=0;i<height.length;i++){
-            while(!st.isEmpty() && height[i]>height[st.peek()]){
-                int top=st.pop();
-                if(!st.isEmpty()){
-                    int dist=i-st.peek()-1;
-                    int water=(Math.min(height[i],height[st.peek()])-height[top])*dist;
-                    totalwater+=water;
-                }
+     int left=0,right=height.length-1;
+        int maxLeft=0,maxRight=0;
+        int water=0;
+        while(left<=right){
+            if(height[left]<height[right]){
+                maxLeft=Math.max(maxLeft,height[left]);
+                water+=maxLeft-height[left];
+                left++;
             }
-            st.push(i);
+            else{
+                maxRight=Math.max(maxRight,height[right]);
+                water+=maxRight-height[right];
+                right--;
+            }
         }
-        return totalwater;
+        return water;
     }
 }
