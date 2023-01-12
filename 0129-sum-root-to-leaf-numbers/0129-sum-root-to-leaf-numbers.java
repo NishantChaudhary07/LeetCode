@@ -14,18 +14,18 @@
  * }
  */
 class Solution {
-    private int pathSum(TreeNode root,int num){
+    private int sum(TreeNode root,int num){
         if(root==null){
             return 0;
         }
-        num=num*10+root.val;
         if(root.left==null && root.right==null){
+            num=num*10+root.val;
             return num;
         }
-        return pathSum(root.left,num)+ pathSum(root.right,num);
+        return sum(root.left,num*10+root.val)+ sum(root.right,num*10+root.val);
         
     }
     public int sumNumbers(TreeNode root) {
-        return pathSum(root,0);
+        return sum(root,0);
     }
 }
