@@ -14,9 +14,9 @@
  * }
  */
 class Solution {
-    private boolean path(TreeNode root,int targetSum,List<List<Integer>> lst,List<Integer> lst1){
+    private void path(TreeNode root,int targetSum,List<List<Integer>> lst,List<Integer> lst1){
      if(root==null){
-            return false;
+            return;
         }  
         
      if(root.left==null && root.right==null){
@@ -25,14 +25,14 @@ class Solution {
              lst.add(new ArrayList<Integer>(lst1));
              lst1.remove(lst1.size()-1);
          }
-         return targetSum-root.val==0;
+         return;
          }
         
          lst1.add(root.val);
-         boolean left=path(root.left,targetSum-root.val,lst,lst1);
-         boolean right=path(root.right,targetSum-root.val,lst,lst1);
+         path(root.left,targetSum-root.val,lst,lst1);
+         path(root.right,targetSum-root.val,lst,lst1);
         lst1.remove(lst1.size()-1);
-         return left || right;
+         
 
     }
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
