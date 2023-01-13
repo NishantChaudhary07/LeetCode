@@ -14,20 +14,15 @@
  * }
  */
 class Solution {
-    int sum=0;
-    private  void leftleavessum(TreeNode root)
-    {
-        if(root==null){
-            return;
-        }
-        if(root.left !=null && root.left.left==null && root.left.right==null){
-            sum+=root.left.val;
-        }
-       leftleavessum(root.left);
-        leftleavessum(root.right);
-    }
     public int sumOfLeftLeaves(TreeNode root) {
-       leftleavessum(root);
-        return sum;
+       if(root==null){
+           return 0;
+       }
+        else if(root.left!=null && root.left.left==null && root.left.right==null){
+            return root.left.val+sumOfLeftLeaves(root.right);
+        }
+        else{
+            return sumOfLeftLeaves(root.left)+sumOfLeftLeaves(root.right);
+        }
 }
 }
