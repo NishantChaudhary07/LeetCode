@@ -14,21 +14,16 @@
  * }
  */
 class Solution {
-    private void inorder(TreeNode root,List<Integer> lst){
+    private boolean isValid(TreeNode root,TreeNode left,TreeNode right){
         if(root==null){
-            return;
+            return true;
         }
-        inorder(root.left,lst);
-        lst.add(root.val);
-        inorder(root.right,lst);
+        if((left!=null && root.val<=left.val) || (right!=null && root.val>=right.val)){
+            return false;
+        }
+        return isValid(root.left,left,root) && isValid(root.right,root,right);
     }
     public boolean isValidBST(TreeNode root) {
-      List<Integer> lst=new ArrayList<>();
-        inorder(root,lst);
-        for(int i=0;i<lst.size()-1;i++){
-            if(lst.get(i+1)<=lst.get(i))
-                return false;
-        }
-        return true;
+        return isValid(root,null,null);
     }
 }
