@@ -14,36 +14,28 @@
  * }
  */
 class Solution {
-    int prev=Integer.MIN_VALUE;
-    int maxFreq=0;
-    int currFreq=0;
-    private void inorder(TreeNode root,List<Integer> lst){
-        if(root==null){
-            return;
-        }
-        inorder(root.left,lst);
-        if(prev==root.val){
-            currFreq++;
-        }
-        else
-           currFreq=1;
-        
-            if(currFreq>maxFreq){
-                lst.clear();
-                lst.add(root.val);
-                maxFreq=currFreq;
+     Map<Integer,Integer> map=new HashMap<>();
+    private void freq(TreeNode root){
+        if(root==null)
+            return ;
+        if(map.containsKey(root.val)){
+                map.put(root.val,map.get(root.val)+1);
             }
-            else if(currFreq==maxFreq){
-                lst.add(root.val);
-            }
-            
-         prev=root.val;
-        
-        inorder(root.right,lst);
+        else{
+            map.put(root.val,1);
+        }
+        freq(root.left);
+        freq(root.right);
     }
     public int[] findMode(TreeNode root) {
+        freq(root);
+        int max=Collections.max(map.values());
         List<Integer> lst=new ArrayList<>();
-        inorder(root,lst);
+        for(int key:map.keySet()){
+            if(map.get(key)==max){
+                lst.add(key);
+            }
+        }
         int[] arr=new int[lst.size()];
         for(int i=0;i<lst.size();i++){
             arr[i]=lst.get(i);
