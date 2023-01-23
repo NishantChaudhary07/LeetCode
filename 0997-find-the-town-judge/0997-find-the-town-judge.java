@@ -1,25 +1,18 @@
 class Solution {
     public int findJudge(int n, int[][] trust) {
-        List<Integer> vis=new ArrayList<>();
-        int nsum=n*(n+1)/2;
-        int nsum2=nsum;
+        if(n==1){
+            return 1;
+        }
+    int[] trusts=new int[n+1];
         for(int i=0;i<trust.length;i++){
-            if(!vis.contains(trust[i][0])){
-                nsum-=trust[i][0];
-            }
-            vis.add(trust[i][0]);
-            
+            trusts[trust[i][0]]--;
+            trusts[trust[i][1]]++;
         }
-        // System.out.println(nsum);
-        if(nsum>0 && nsum<=n){
-            for(int i=0;i<trust.length;i++){
-                if(trust[i][1]==nsum)
-                    nsum2-=trust[i][0];
-            }
-            if(nsum==nsum2)
-                return nsum;
+        
+        for(int i=0;i<trusts.length;i++){
+            if(trusts[i]==n-1)
+                return i;
         }
-    
         return -1;
-    }
+}
 }
