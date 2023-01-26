@@ -5,9 +5,9 @@ class Solution {
             return;
         }
         String str=arr[Integer.parseInt(inp.substring(0,1))];
-        if(str==""){
-            return;
-        }
+        // if(str==""){
+        //     return;
+        // }
         for(int i=0;i<str.length();i++){
             combinations(arr,inp.substring(1),out+str.charAt(i),list);
         }
