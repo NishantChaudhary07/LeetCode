@@ -1,35 +1,19 @@
 class Solution {
     public List<Integer> getRow(int rowIndex) {
-       List<List<Integer>> res=new ArrayList<>();
-        List<Integer> lst=new ArrayList<>();
-        lst.add(1);
-        res.add(lst);
-        
-        if(rowIndex==0){
-            return res.get(0);
-        }
-        lst.add(1);
-        res.add(lst);
-        if(rowIndex==1){
-            return res.get(1);
-        }
-        else{
-            for(int i=2;i<=rowIndex;i++){
-                List<Integer> lst0=new ArrayList<>();
-                lst0.add(1);
-              
-                int k=1; 
-                while(k<i){
-                    lst0.add(res.get(i-1).get(k-1)+res.get(i-1).get(k));
-                    
-                    k++;
-                }
-                lst0.add(1);
-                res.add(lst0);
-            }
-            
-        }
+        List<List<Integer>> lst=new ArrayList<>();
 
-        return res.get(res.size()-1);
+         for(int i=1;i<=rowIndex+1;i++){
+            List<Integer> row=new ArrayList<>();
+            for(int j=0;j<i;j++){
+                if(j==0 || j==i-1){
+                    row.add(1);
+                }
+                else{
+                row.add(lst.get(i-2).get(j-1)+lst.get(i-2).get(j));
+                }
+            }
+            lst.add(row);
+        }
+        return lst.get(rowIndex);
     }
 }
