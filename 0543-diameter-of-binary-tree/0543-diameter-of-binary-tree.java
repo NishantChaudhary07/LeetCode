@@ -14,18 +14,24 @@
  * }
  */
 class Solution {
-    private int height(TreeNode root){
-        if(root==null){
-            return 0;
-        }
-        return Math.max(height(root.left),height(root.right))+1;
+    private class diapair{
+        int height=0;
+        int dia=0;
     }
-    public int diameterOfBinaryTree(TreeNode root) {
+    
+    private diapair pair(TreeNode root){
         if(root==null){
-            return 0;
+            return new diapair();
         }
-        int ld=diameterOfBinaryTree(root.left);
-        int rd=diameterOfBinaryTree(root.right);
-        return Math.max(height(root.left)+height(root.right),Math.max(ld,rd));
+        diapair ld=pair(root.left);
+        diapair rd=pair(root.right);
+        diapair dp=new diapair();
+        dp.height=Math.max(ld.height,rd.height)+1;
+        dp.dia=Math.max(ld.height+rd.height,Math.max(ld.dia,rd.dia));
+        return dp;
+    }
+    
+    public int diameterOfBinaryTree(TreeNode root) {
+        return pair(root).dia;
     }
 }
