@@ -14,25 +14,23 @@
  * }
  */
 class Solution {
-    private class BalancePair{
-        int ht=-1;
+    private class pair{
+        int ht=0;
         boolean isbal=true;
     }
     
-    private BalancePair balancePair(TreeNode root){
+    private pair Pair(TreeNode root){
         if(root==null){
-            return new BalancePair();
+            return new pair();
         }
-        BalancePair lbp=balancePair(root.left);
-        BalancePair rbp=balancePair(root.right);
-        BalancePair nbp=new BalancePair();
-        nbp.ht=Math.max(lbp.ht,rbp.ht)+1;
-        int bf=Math.abs(lbp.ht-rbp.ht);
-        nbp.isbal=lbp.isbal && rbp.isbal && bf<=1;
-        return nbp;
-        
-    }
+        pair lp=Pair(root.left);
+        pair rp=Pair(root.right);
+        pair np=new pair();
+        np.ht=Math.max(lp.ht,rp.ht)+1;
+        np.isbal=lp.isbal && rp.isbal && Math.abs(lp.ht-rp.ht)<=1;
+        return np;
+     }
     public boolean isBalanced(TreeNode root) {
-        return balancePair(root).isbal;
+        return Pair(root).isbal;
     }
 }
