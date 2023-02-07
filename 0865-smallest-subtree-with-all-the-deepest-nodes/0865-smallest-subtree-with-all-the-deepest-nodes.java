@@ -14,16 +14,7 @@
  * }
  */
 
-/*public TreeNode dfs(TreeNode node,int level){
-if(node==null) return null;
-if(level==maxDepth) return node;
-TreeNode left=dfs(node.left,level+1);
-TreeNode right=dfs(node.right,level+1);
-if(left!=null && right!=null) return node;
-if(left!=null) return left;
-if(right!=null) return right;
-return null;
-}*/
+
 class Solution {
     private int height(TreeNode root){
         if(root==null){
