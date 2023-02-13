@@ -5,9 +5,7 @@ class Solution {
         for(int i=0;i<prices.length;i++){
                 ans+=st.size();
             if(!st.isEmpty() && st.peek()-prices[i]!=1){
-                while(!st.isEmpty()){
-                    st.pop();
-                }
+               st.clear();
             }
           st.push(prices[i]);  
         }
