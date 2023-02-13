@@ -1,16 +1,15 @@
 class Solution {
     public long getDescentPeriods(int[] prices) {
-        Stack<Integer> st=new Stack<>();
-        long ans=0;
-        for(int i=0;i<prices.length;i++){
-                ans+=st.size();
-            if(!st.isEmpty() && st.peek()-prices[i]!=1){
-               st.clear();
+        long ans=1;
+        int start=0,end=1;
+        while(end<prices.length){
+           
+            if(prices[end-1]-prices[end]!=1){
+                start=end;
             }
-          st.push(prices[i]);  
+             ans+=end-start+1;
+            end++;
         }
-
-            ans+=st.size();
         return ans;
     }
 }
