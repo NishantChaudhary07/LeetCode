@@ -9,7 +9,7 @@
  * }
  */
 class Solution {
-    private static ListNode merge2Nodes(ListNode list1,ListNode list2){
+    private static ListNode merge2lists(ListNode list1,ListNode list2){
         ListNode list3=new ListNode();
         ListNode head=list3;
         while(list1!=null && list2!=null){
@@ -41,7 +41,7 @@ class Solution {
         ListNode reslist=new ListNode(Integer.MIN_VALUE);
         ListNode head=reslist;
         for(int i=0;i<lists.length;i++){
-            head=merge2Nodes(head,lists[i]);
+            head=merge2lists(head,lists[i]);
         }
         return head.next;
     }
