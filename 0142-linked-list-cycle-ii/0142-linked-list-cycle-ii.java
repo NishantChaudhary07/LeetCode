@@ -30,7 +30,6 @@ public class Solution {
                 slow=slow.next;
             
     }
-        System.out.print(head.val);
             return head;
 }
 }
