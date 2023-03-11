@@ -28,19 +28,19 @@ class Solution {
         if(head==null){
             return null;
         }
+        ListNode prev=null;
         ListNode slow=head;
         ListNode fast=head;
-        ListNode prev=slow;
         while(fast!=null && fast.next!=null){
             prev=slow;
-            slow=slow.next; 
+            slow=slow.next;
             fast=fast.next.next;
         }
-        if(head==slow){
+        
+        if(slow==head){
             return new TreeNode(slow.val);
         }
         TreeNode root=new TreeNode(slow.val);
-        
         root.right=BST(slow.next);
         prev.next=null;
         root.left=BST(head);
