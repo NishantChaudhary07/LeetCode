@@ -9,24 +9,14 @@ class Solution {
                 map.put(nums[i],map.get(nums[i])+1);
             }
         }
-        List<Integer> lst=new ArrayList<>();
-        for(int key:map.keySet()){
-            lst.add(map.get(key));
-        }
-        
+       PriorityQueue<Integer> maxheap=new PriorityQueue<>((a,b) -> map.get(b)-map.get(a));
+      for(int key:map.keySet()){
+          maxheap.add(key);
+      }
+      
         int[] res=new int[k];
-        Collections.sort(lst);
-        int i=lst.size()-1;
-        while(k>0){
-          for(int key:map.keySet()){
-              if(map.get(key)==lst.get(i)){
-                  res[res.length-k]=key;
-                  map.remove(key);
-                  break;
-              }
-          } 
-            k--;
-            i--;
+        for(int i=0;i<k;i++){
+            res[i]=maxheap.poll();
         }
         return res;
     }
