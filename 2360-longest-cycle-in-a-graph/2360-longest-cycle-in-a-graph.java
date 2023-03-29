@@ -1,29 +1,44 @@
 class Solution {
-    int answer = -1;
-
-    public void dfs(int node, int[] edges, Map<Integer, Integer> dist, boolean[] visit) {
-        visit[node] = true;
-        int neighbor = edges[node];
-
-        if (neighbor != -1 && !visit[neighbor]) {
-            dist.put(neighbor, dist.get(node) + 1);
-            dfs(neighbor, edges, dist, visit);
-        } else if (neighbor != -1 && dist.containsKey(neighbor)) {
-            answer = Math.max(answer, dist.get(node) - dist.get(neighbor) + 1);
-        }
-    }
-
     public int longestCycle(int[] edges) {
-        int n = edges.length;
-        boolean[] visit = new boolean[n];
-
-        for (int i = 0; i < n; i++) {
-            if (!visit[i]) {
-                Map<Integer, Integer> dist = new HashMap<>();
-                dist.put(i, 1);
-                dfs(i, edges, dist, visit);
+        int[] in=new int[edges.length];
+        for(int i=0;i<in.length;i++){
+            if(edges[i]!=-1){
+                in[edges[i]]++;
             }
         }
-        return answer;
+        
+        boolean[] vis=new boolean[edges.length];
+        Queue<Integer> q=new LinkedList<>();
+        for(int i=0;i<in.length;i++){
+            if(in[i]==0){
+                q.add(i);
+            }
+        }
+        while(!q.isEmpty()){
+            int rem=q.remove();
+            vis[rem]=true;
+            int nbr=edges[rem];
+            if(nbr!=-1){
+                in[nbr]--;
+                if(in[nbr]==0){
+                    q.add(nbr);
+                }
+            }
+        }
+        int cyclelen=-1;
+        for(int i=0;i<vis.length;i++){
+            if(!vis[i]){
+                int count=1;
+                int nbr=edges[i];
+                vis[i]=true;
+                while(nbr!=i){
+                    vis[nbr]=true;
+                    count++;
+                    nbr=edges[nbr];
+                }
+                cyclelen=Math.max(cyclelen,count);
+            }
+        }
+        return cyclelen;
     }
 }
