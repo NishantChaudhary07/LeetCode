@@ -1,6 +1,5 @@
 class Solution {
-    
-    public int[] findCordinates(int curr,int n){
+     public int[] findCordinates(int curr,int n){
         int[] pos=new int[2];
         int r=n-((curr-1)/n)-1;
         int col=(curr-1)%n;
@@ -14,17 +13,14 @@ class Solution {
     
     public int snakesAndLadders(int[][] board) {
         int n=board.length;
-        int steps=0;
+        Map<Integer,Integer> map=new HashMap<>();
+        map.put(1,0);
         Queue<Integer> q=new LinkedList<>();
-        HashSet  vis=new HashSet<>();
         q.add(1);
-        vis.add(1);
         while(!q.isEmpty()){
-            int size=q.size();
-            while(size-->0){
             int v=q.remove();
             if(v==n*n){
-                return steps;
+                return map.get(v);
             }
             for(int i=1;i<=6;i++){
                 if(v+i>n*n){
@@ -33,21 +29,13 @@ class Solution {
                 int[] pos=findCordinates(v+i,n);
                 int r=pos[0];
                 int c=pos[1];
-                if(vis.contains(v+i)){
-                    continue;
-                }
-                vis.add(v+i);
-                // System.out.println(board[r][c]+" "+steps);
-                    if(board[r][c]==-1){
-                        q.add(v+i);
-                    }
-                    else{
-                        q.add(board[r][c]);
-                    }
+                int next=board[r][c]==-1?v+i:board[r][c];
                 
+                if(!map.containsKey(next)){
+                    map.put(next,map.get(v)+1);
+                    q.add(next);
+                }
             }
-            }
-            steps++;
         }
         return -1;
     }
