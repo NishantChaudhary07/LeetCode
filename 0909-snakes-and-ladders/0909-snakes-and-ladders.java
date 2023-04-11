@@ -16,9 +16,9 @@ class Solution {
         int n=board.length;
         int steps=0;
         Queue<Integer> q=new LinkedList<>();
-        boolean[][]  vis=new boolean[n][n];
+        HashSet  vis=new HashSet<>();
         q.add(1);
-        vis[n-1][0]=true;
+        vis.add(1);
         while(!q.isEmpty()){
             int size=q.size();
             while(size-->0){
@@ -33,10 +33,10 @@ class Solution {
                 int[] pos=findCordinates(v+i,n);
                 int r=pos[0];
                 int c=pos[1];
-                if(vis[r][c]==true){
+                if(vis.contains(v+i)){
                     continue;
                 }
-                vis[r][c]=true;
+                vis.add(v+i);
                 // System.out.println(board[r][c]+" "+steps);
                     if(board[r][c]==-1){
                         q.add(v+i);
