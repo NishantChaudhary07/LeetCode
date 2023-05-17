@@ -1,20 +1,20 @@
 class Solution {
-public int robberBU(int[] arr){
-    if(arr.length==1){
-        return arr[0];
+    public int RobDP(int[] nums,int i,int[] dp){
+        if(i>=nums.length){
+            return 0;
+        }
+        
+        if(dp[i]!=-1){
+            return dp[i];
+        }
+        
+        int rob=nums[i]+RobDP(nums,i+2,dp);
+        int dont_rob=RobDP(nums,i+1,dp);
+        return dp[i]=Math.max(rob,dont_rob);
     }
-    int[] dp=new int[arr.length];
-    dp[0]=arr[0];
-    dp[1]=Math.max(arr[0],arr[1]);
-    
-    for(int i=2;i<dp.length;i++){
-        int rob=arr[i]+dp[i-2];
-        int Dont_rob=dp[i-1];
-        dp[i]=Math.max(rob,Dont_rob);
-    }
-    return dp[arr.length-1];
-}
     public int rob(int[] nums) {
-        return robberBU(nums);
+        int[] dp=new int[nums.length];
+        Arrays.fill(dp,-1);
+        return RobDP(nums,0,dp);
     }
 }
