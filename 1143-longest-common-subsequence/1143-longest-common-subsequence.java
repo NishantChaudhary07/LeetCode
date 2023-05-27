@@ -1,27 +1,23 @@
 class Solution {
-    private int lcs(String st1,String st2,int i,int j,int[][] dp){
-        int count=0;
-        if(i==st1.length() || j==st2.length()){
-            return 0;
-        }
-        if(dp[i][j]!=-1){
-            return dp[i][j];
-        }
-        if(st1.charAt(i)==st2.charAt(j)){
-            count=1+lcs(st1,st2,i+1,j+1,dp);
+    private int lcsBottomUp(String st1,String st2){
+        int[][] dp=new int[st1.length()+1][st2.length()+1];
+        for(int i=1;i<dp.length;i++){
+            for(int j=1;j<dp[0].length;j++){
+                int ans=0;
+        if(st1.charAt(i-1)==st2.charAt(j-1)){
+            ans=1+dp[i-1][j-1];
         }
         else{
-            int ig_f=lcs(st1,st2,i+1,j,dp);
-            int ig_s=lcs(st1,st2,i,j+1,dp);
-            count=Math.max(ig_f,ig_s);
+            int ig_f=dp[i][j-1];
+            int ig_s=dp[i-1][j];
+            ans=Math.max(ig_f,ig_s);
         }
-        return dp[i][j]=count;
+                dp[i][j]=ans;
+      }
+    }
+        return dp[dp.length-1][dp[0].length-1];
     }
     public int longestCommonSubsequence(String text1, String text2) {
-        int[][] dp=new int[text1.length()][text2.length()];
-        for(int[] ar:dp){
-            Arrays.fill(ar,-1);
-        }
-       return lcs(text1,text2,0,0,dp);
+       return lcsBottomUp(text1,text2);
     }
 }
