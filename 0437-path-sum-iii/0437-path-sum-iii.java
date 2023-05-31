@@ -22,8 +22,7 @@ class Solution {
         if(targetSum-root.val==0){
             ans++;
         }
-        ans=ans+countPaths(root.left,targetSum-root.val);
-        ans=ans+countPaths(root.right,targetSum-root.val);
+        ans=ans+countPaths(root.left,targetSum-root.val)+countPaths(root.right,targetSum-root.val);
         return ans;
     }
     public int pathSum(TreeNode root, int targetSum) {
