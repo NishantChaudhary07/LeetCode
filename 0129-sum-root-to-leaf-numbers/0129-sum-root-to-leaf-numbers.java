@@ -13,9 +13,8 @@
  *     }
  * }
  */
-
 class Solution {
-    private int pathSum(TreeNode root,int num){
+    public int help(TreeNode root,int num){
         if(root==null){
             return 0;
         }
@@ -23,10 +22,9 @@ class Solution {
         if(root.left==null && root.right==null){
             return num;
         }
-        return pathSum(root.left,num)+ pathSum(root.right,num);
-        
+        return help(root.left,num)+help(root.right,num);
     }
     public int sumNumbers(TreeNode root) {
-        return pathSum(root,0);
+       return help(root,0);
     }
 }
