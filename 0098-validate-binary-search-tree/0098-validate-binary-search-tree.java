@@ -13,33 +13,33 @@
  *     }
  * }
  */
-class bstpair{
-    boolean isbst=true;
-    long max=Long.MIN_VALUE;
-    long min=Long.MAX_VALUE;
-}
 class Solution {
-    private bstpair isvalidbst(TreeNode root){
+    private class Diapair{
+        boolean isBst=true;
+        long min=Long.MAX_VALUE;
+        long max=Long.MIN_VALUE;
+    }
+    public Diapair validBst(TreeNode root){
         if(root==null){
-            return new bstpair();
+            return new Diapair();
         }
-        bstpair lbst=isvalidbst(root.left);
-        bstpair rbst=isvalidbst(root.right);
-        bstpair bst=new bstpair();
-        if(lbst.isbst==true && rbst.isbst==true && root.val>lbst.max && root.val<rbst.min){
-            bst.isbst=true;
-            bst.min=Math.min(lbst.min,root.val);
-            bst.max=Math.max(rbst.max,root.val);
-            return bst;
+        Diapair left=validBst(root.left);
+        Diapair right=validBst(root.right);
+        Diapair dp=new Diapair();
+        if(left.isBst==true && right.isBst==true && left.max<root.val && right.min>root.val){
+            dp.isBst=true;
+            dp.min=Math.min(root.val,left.min);
+            dp.max=Math.max(root.val,right.max);
+            return dp;
         }
         
-        bst.isbst=false;
-        bst.min=Math.min(lbst.min,Math.min(rbst.min,root.val));
-        bst.max=Math.max(lbst.max,Math.max(rbst.max,root.val));
-        return bst;
+        dp.isBst=false;
+        dp.min=Math.min(root.val,Math.min(left.min,right.min));
+        dp.max=Math.max(root.val,Math.max(left.max,right.max));
+        return dp;
     }
+    
     public boolean isValidBST(TreeNode root) {
-        // System.out.print(isvalidbst(root).min);
-        return isvalidbst(root).isbst;
+        return validBst(root).isBst;
     }
 }
