@@ -1,4 +1,19 @@
 class Solution {
+    public static boolean binarySearch(int[] arr,int start,int end,int target){
+        while(start<=end){
+            int mid=(start+end)/2;
+            if(arr[mid]==target){
+                return true;
+            }
+            else if(target<arr[mid]){
+                end=mid-1;
+            }
+            else{
+                start=mid+1;
+            }
+        }
+        return false;
+    }
     public boolean searchMatrix(int[][] matrix, int target) {
         boolean ans=false;
 		int ind=matrix.length-1;
@@ -13,11 +28,12 @@ class Solution {
 		   }
 		}
 		if(ans!=true){
-		for(int j=0;j<matrix[0].length;j++){
-			if(matrix[ind][j]==target){
-               ans=true;
-			}
-		}
+		// for(int j=0;j<matrix[0].length;j++){
+		// 	if(matrix[ind][j]==target){
+		// ans=true;
+		// 	}
+		// }
+            ans=binarySearch(matrix[ind],0,matrix[ind].length-1,target);
 		}
 		return ans;
     }
