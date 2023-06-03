@@ -14,15 +14,17 @@
  * }
  */
 class Solution {
-    public int countPath(TreeNode root,int target){
+    public int countPath(TreeNode root,int target,long currSum){
         if(root==null){
             return 0;
         }
         int count=0;
-        if(target-root.val==0){
+        currSum+=root.val;
+        if(target==currSum){
             count++;
         }
-        count=count+countPath(root.left,target-root.val)+countPath(root.right,target-root.val);
+        count=count+countPath(root.left,target,currSum)+countPath(root.right,target,currSum);
+        currSum-=root.val;
         return count;
     }
     public int pathSum(TreeNode root, int targetSum) {
@@ -32,7 +34,7 @@ class Solution {
         if(root.val>1000000){
             return 0;
         }
-        int rooot=countPath(root,targetSum);
+        int rooot=countPath(root,targetSum,0);
         int left=pathSum(root.left,targetSum);
         int right=pathSum(root.right,targetSum);
         return rooot+left+right;
