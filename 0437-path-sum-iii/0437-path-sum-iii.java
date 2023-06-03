@@ -31,9 +31,7 @@ class Solution {
         if(root==null){
             return 0;
         }
-        if(root.val>1000000){
-            return 0;
-        }
+        
         int rooot=countPath(root,targetSum,0);
         int left=pathSum(root.left,targetSum);
         int right=pathSum(root.right,targetSum);
