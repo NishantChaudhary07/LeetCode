@@ -1,26 +1,24 @@
 class Solution {
-    private int helper(int row,int col,int[][] grid,int[][] dp){
-        if(row==grid.length-1 && col==grid[0].length-1){
-            return grid[row][col];
+    public int help(int[][] grid,int i,int j,int[][] dp){
+        if(i==grid.length-1 && j==grid[0].length-1){
+            return grid[i][j];
         }
-        
-        if(row>=grid.length || col>=grid[0].length){
+        if(i==grid.length || j==grid[0].length){
             return Integer.MAX_VALUE;
         }
         
-        if(dp[row][col]!=-1){
-            return dp[row][col];
+        if(dp[i][j]!=-1){
+            return dp[i][j];
         }
-        return dp[row][col]=grid[row][col]+Math.min(helper(row+1,col,grid,dp),helper(row,col+1,grid,dp));
+        int right=help(grid,i,j+1,dp);
+        int down=help(grid,i+1,j,dp);
+        return dp[i][j]=grid[i][j]+Math.min(right,down);
     }
     public int minPathSum(int[][] grid) {
-        int m=grid.length;
-        int n=grid[0].length;
-        int[][] dp=new int[m][n];
-
-        for(int[] row:dp){
-            Arrays.fill(row,-1);
+        int[][] dp=new int[grid.length][grid[0].length];
+        for(int[] arr:dp){
+            Arrays.fill(arr,-1);
         }
-        return helper(0,0,grid,dp);
+        return help(grid,0,0,dp);
     }
 }
