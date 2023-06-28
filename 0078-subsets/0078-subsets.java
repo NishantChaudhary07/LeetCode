@@ -1,18 +1,16 @@
 class Solution {
-    public static void subset(int[] nums,List<Integer> list,List<List<Integer>> res,int i){
-        if(i==nums.length){
-            res.add(new ArrayList<Integer>(list));
-            return;
-        }
-        subset(nums,list,res,i+1);
-        list.add(nums[i]);
-        subset(nums,list,res,i+1);
-        list.remove(list.size()-1);
-    }
     public List<List<Integer>> subsets(int[] nums) {
+        List<Integer> lst=new ArrayList<>();
         List<List<Integer>> res=new ArrayList<>();
-        List<Integer> list=new ArrayList<>();
-        subset(nums,list,res,0);
+        for(int num=0;num<(1<<nums.length);num++){
+            for(int digit=0;digit<nums.length;digit++){
+                if(((1<<digit) & num)!=0){
+                    lst.add(nums[digit]);
+                }
+            }
+            res.add(new ArrayList<>(lst));
+            lst=new ArrayList<>();
+        }
         return res;
     }
 }
