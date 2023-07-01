@@ -12,12 +12,9 @@ class Solution {
             }
             if(map.containsKey(rem)){
                 count+=map.get(rem);
-                map.put(rem,map.get(rem)+1);
+                
             }
-            else{
-                map.put(rem,1);
-            }
-            
+           map.put(rem,map.getOrDefault(rem,0)+1); 
         }
         return count;
     }
