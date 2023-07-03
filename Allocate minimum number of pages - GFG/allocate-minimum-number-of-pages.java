@@ -36,7 +36,7 @@ class Solution
     public static boolean isPossible(int[] a,int m,int mid){
         int pages=0;
         int i=0;
-        int students=1;
+        int students=0;
         while(i<a.length){
             if(pages+a[i]<=mid){
                 pages+=a[i];
@@ -46,7 +46,7 @@ class Solution
                 pages=0;
                 students++;
             }
-            if(students>m){
+            if(students==m){
                 return false;
             }
         }
