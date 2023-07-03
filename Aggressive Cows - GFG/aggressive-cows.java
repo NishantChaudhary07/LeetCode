@@ -33,13 +33,29 @@ class GFG {
 
 // User function Template for Java
 class Solution {
+    public static boolean isPossible(int[] stalls,int no_of_cows,int mid){
+        int cows=1;
+        int i=1;
+        int currstall=stalls[0];
+        while(i<stalls.length){
+            if(stalls[i]-currstall>=mid){
+                currstall=stalls[i];
+                cows++;
+            }
+            if(cows==no_of_cows){
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+    
     public static int solve(int n, int k, int[] stalls) {
         Arrays.sort(stalls);
-        int start=0;
-        int end=stalls[stalls.length-1];
+        int start=0,end=stalls[n-1];
         int ans=0;
         while(start<=end){
-             int mid=(start+end)/2;
+            int mid=start+(end-start)/2;
             if(isPossible(stalls,k,mid)){
                 ans=mid;
                 start=mid+1;
@@ -49,22 +65,6 @@ class Solution {
             }
         }
         return ans;
-    }
-     public static boolean isPossible(int[] stalls,int no_of_cows,int mid){
-        int curr=stalls[0];
-        int i=1;
-        int cows=1;
-        while(i<stalls.length){
-        if(stalls[i]-curr>=mid){
-            cows++;
-            curr=stalls[i];
-        }
-        if(cows>=no_of_cows){
-            return true;
-        }
-        i++;
-        }
         
-        return false;
     }
-    }
+}
