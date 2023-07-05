@@ -1,24 +1,26 @@
 class Solution {
-    public static void combinations(String[] arr,String inp,String out,List<String> list){
-        if(inp.length()==0){
-            list.add(out);
+    public static void combinations(String[] keypad,String digits,int i,String ans,List<String> lst){
+        if(ans.length()==digits.length()){
+            lst.add(ans);
+        }
+        if(i==digits.length()){
             return;
         }
-        String str=arr[Integer.parseInt(inp.substring(0,1))];
-        // if(str==""){
-        //     return;
-        // }
-        for(int i=0;i<str.length();i++){
-            combinations(arr,inp.substring(1),out+str.charAt(i),list);
+        
+        String str=keypad[Integer.parseInt(digits.substring(i,i+1))-1];
+        
+        for(int j=0;j<str.length();j++){
+            combinations(keypad,digits,i+1,ans+str.charAt(j),lst);
         }
     }
     public List<String> letterCombinations(String digits) {
-        String[] arr={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        String[] keypad={"","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
         List<String> res=new ArrayList<>();
         if(digits.isEmpty()){
             return res;
         }
-        combinations(arr,digits,"",res);
+        combinations(keypad,digits,0,"",res);
+        
         return res;
     }
 }
