@@ -1,27 +1,56 @@
 class Trie {
-    HashSet<String> set;
-    public Trie() {
-        set=new HashSet<>();
+     public  class Node{
+        char ch ;
+        HashMap<Character, Node> child = new HashMap<>();
+        boolean isterminal = false;
+    }
+    private Node root;
+    public Trie(){
+        Node nn = new Node();
+        nn.ch ='*';
+        this.root = nn;
     }
     
-    public void insert(String word) {
-        set.add(word);
-    }
-    
-    public boolean search(String word) {
-        if(set.contains(word)){
-            return true;
-        }
-        return false;
-    }
-    
-    public boolean startsWith(String prefix) {
-        for(String ele:set){
-            if(ele.startsWith(prefix)){
-                return true;
+    public void insert(String word){
+        Node curr = root;
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            if(curr.child.containsKey(ch))
+                curr=curr.child.get(ch);
+            else {
+                Node nn =  new Node();
+                nn.ch = ch;
+                curr.child.put(ch,nn);
+                curr =nn;
             }
         }
-        return false;
+        curr.isterminal=true;
+    }
+    
+    public boolean search (String word){
+        Node curr = root;
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            if(!curr.child.containsKey(ch))
+                return false;
+
+            curr=curr.child.get(ch);
+
+        }
+        return curr.isterminal;
+    }
+    
+    public boolean startsWith(String word) {
+        Node curr = root;
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            if(!curr.child.containsKey(ch))
+                return false;
+
+            curr=curr.child.get(ch);
+
+        }
+        return true;
     }
 }
 
