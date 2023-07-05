@@ -1,19 +1,23 @@
 class Solution {
-public static void parantheses(int n,int open,int close,String ans,List<String> list){
-    if(open==n & close==n){
-        list.add(ans);
-        return;
+    public static void generate(int open,int close,int n,String ans,List<String> lst){
+        
+        if(open==n && close==n){
+            lst.add(ans);
+            return;
+        }
+        
+        if(open<n){
+            generate(open+1,close,n,ans+'(',lst);
+        }
+        
+        if(close<open){
+            generate(open,close+1,n,ans+')',lst);
+        }
+       
     }
-    if(open<n){
-        parantheses(n,open+1,close,ans+'(',list);
-    }
-    if(close<open){
-        parantheses(n,open,close+1,ans+')',list);
-    }
-}
     public List<String> generateParenthesis(int n) {
-    List<String> res=new ArrayList<>();
-        parantheses(n,0,0,"",res);
+        List<String> res=new ArrayList<>();
+        generate(0,0,n,"",res);
         return res;
     }
 }
