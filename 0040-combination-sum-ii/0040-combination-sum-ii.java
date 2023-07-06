@@ -1,27 +1,25 @@
 class Solution {
-    public static void combination(int[] candidates,int target,List<Integer> list,List<List<Integer>> res,int idx){
-        if(target==0){
-            res.add(new ArrayList<Integer>(list));
+    public static void combo(int[] candidates,int currsum,int target,int idx,List<Integer> lst,List<List<Integer>> res){
+        if(currsum>target){
             return;
         }
+        if(currsum==target){
+            res.add(new ArrayList<>(lst));
+        }
         for(int i=idx;i<candidates.length;i++){
-            if(i!=idx && candidates[i]==candidates[i-1])
+            if(i!=idx && candidates[i-1]==candidates[i]){
                 continue;
-            if(target>=candidates[i]){
-                list.add(candidates[i]);
-                combination(candidates,target-candidates[i],list,res,i+1);
-                list.remove(list.size()-1);
-                // while(i<candidates.length-1 && candidates[i]==candidates[i+1]){
-                //     i++;
-                // }
             }
+            lst.add(candidates[i]);
+            combo(candidates,currsum+candidates[i],target,i+1,lst,res);
+            lst.remove(lst.size()-1);
         }
     }
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> res=new ArrayList<>();
-        List<Integer> list=new ArrayList<>();
+        List<Integer> lst=new ArrayList<>();
         Arrays.sort(candidates);
-        combination(candidates,target,list,res,0);
+        combo(candidates,0,target,0,lst,res);
         return res;
     }
 }
