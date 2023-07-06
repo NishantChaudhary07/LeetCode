@@ -1,33 +1,34 @@
 class Solution {
     public static boolean isPalindrome(String str){
-        int start=0,end=str.length()-1;
-        while(start<=end){
-            if(str.charAt(start)!=str.charAt(end))
+        int left=0,right=str.length()-1;
+        while(left<=right){
+            if(str.charAt(left)!=str.charAt(right)){
                 return false;
-            start++;
-            end--;
+            }
+            left++;
+            right--;
         }
         return true;
     }
     
-    public static void partition1(String inp,List<String> list,List<List<String>> res){
+    public static void palPartition(String inp,List<String> lst,List<List<String>> res){
         if(inp.length()==0){
-            res.add(new ArrayList<>(list));
+            res.add(new ArrayList<>(lst));
             return;
         }
+            
         for(int i=1;i<=inp.length();i++){
             if(isPalindrome(inp.substring(0,i))){
-                list.add(inp.substring(0,i));
-                partition1(inp.substring(i),list,res);
-                list.remove(list.size()-1);
+                lst.add(inp.substring(0,i));
+                palPartition(inp.substring(i),lst,res);
+                lst.remove(lst.size()-1);
             }
         }
     }
-    
     public List<List<String>> partition(String s) {
+        List<String> lst=new ArrayList<>();
         List<List<String>> res=new ArrayList<>();
-        List<String> list=new ArrayList<>();
-        partition1(s,list,res);
+        palPartition(s,lst,res);
         return res;
     }
 }
