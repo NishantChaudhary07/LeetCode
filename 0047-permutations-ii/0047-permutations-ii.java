@@ -1,30 +1,32 @@
 class Solution {
-    public static void permutations(List<Integer> inp,List<Integer> out,List<List<Integer>> res){
-        if(inp.size()==0){
-           res.add(new ArrayList<Integer>(out));
-           return;
+    public static void backtrack(int[] nums,List<Integer> lst,List<List<Integer>> res,boolean[] vis){
+        if(lst.size()==nums.length){
+            if(!res.contains(lst)){
+            res.add(new ArrayList<>(lst));
+            }
+            return;
+        }
+        
+            for(int i=0;i<nums.length;i++){
+                // if(i>0 && nums[i-1]==nums[i]){
+                //     continue;
+                // }
+                if(vis[i]){
+                    continue;
+                }
+                vis[i]=true;
+                lst.add(nums[i]);
+                backtrack(nums,lst,res,vis);
+                lst.remove(lst.size()-1);
+                vis[i]=false;
+            }
         }
 
-        for(int i=0;i<inp.size();i++){
-            if(i>0 && inp.get(i)==inp.get(i-1)){
-                continue;
-            }
-            out.add(inp.get(i));
-            int n=inp.remove(i);
-            permutations(inp,out,res);
-            out.remove(out.size()-1);
-            inp.add(i,n);
-        }
-    }
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<Integer> inp=new ArrayList<>();
-        Arrays.sort(nums);
-    for(int i=0;i<nums.length;i++){
-        inp.add(nums[i]);
-    }
-        List<Integer> out=new ArrayList<>();
         List<List<Integer>> res=new ArrayList<>();
-        permutations(inp,out,res);
+        List<Integer> lst=new ArrayList<>();
+        boolean[] vis=new boolean[nums.length];
+        backtrack(nums,lst,res,vis);
         return res;
     }
 }
