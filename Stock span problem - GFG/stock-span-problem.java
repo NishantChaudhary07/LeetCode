@@ -43,24 +43,21 @@ class Solution
     public static int[] calculateSpan(int price[], int n)
     {
         // Your code here
-        int[] ans=new int[price.length];
+        int[] span=new int[n];
         Stack<Integer> st=new Stack<>();
-        for(int i=0;i<price.length;i++){
+        for(int i=0;i<n;i++){
             while(!st.isEmpty() && price[i]>=price[st.peek()]){
                 st.pop();
             }
-                if(st.isEmpty()){
-                    ans[i]=i+1;
-                }
-                else{
-                    ans[i]=i-st.peek();
-                }
-            
+            if(st.isEmpty()){
+                span[i]=i+1;
+            }
+            else{
+                span[i]=i-st.peek();
+            }
             st.push(i);
-             
         }
-        
-        return ans;
+        return span;
     }
     
 }
