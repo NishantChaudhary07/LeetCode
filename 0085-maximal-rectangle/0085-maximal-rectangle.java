@@ -1,49 +1,48 @@
 class Solution {
-    public static int largestRectangleArea(int[] height){
+    public int largestRectangleArea(int[] heights) {
         Stack<Integer> st=new Stack<>();
-        int maxarea=0;
-        for(int i=0;i<height.length;i++){
-            while(!st.isEmpty() && height[i]<height[st.peek()]){
-                int right=i;
-                int heigh=height[st.pop()];
+        int max_area=0;
+        for(int i=0;i<heights.length;i++){
+            while(!st.isEmpty() && heights[st.peek()]>=heights[i]){
+                int ht=heights[st.pop()];
                 if(!st.isEmpty()){
-                   int left=st.peek();
-                    maxarea=Math.max(maxarea,(right-left-1)*heigh);
+                    max_area=Math.max(max_area,ht*(i-st.peek()-1));
                 }
                 else{
-                    maxarea=Math.max(maxarea,heigh*right);
+                    max_area=Math.max(max_area,ht*i);
                 }
             }
+            
             st.push(i);
         }
-       int  right=height.length;
+        
+        int len=heights.length;
         while(!st.isEmpty()){
-                int heigh=height[st.pop()];
-                if(!st.isEmpty()){
-                   int left=st.peek();
-                    maxarea=Math.max(maxarea,(right-left-1)*heigh);
-                }
-                else{
-                    maxarea=Math.max(maxarea,heigh*right);
-                }
+            int ht=heights[st.pop()];
+            if(!st.isEmpty()){
+                max_area=Math.max(max_area,ht*(len-st.peek()-1));
+            }
+            else{
+                max_area=Math.max(max_area,ht*len);
+            }
         }
-        return maxarea;
+        
+        return max_area;
     }
-    
     public int maximalRectangle(char[][] matrix) {
-        int[] arr=new int[matrix[0].length];
-        int maxrect=0;
+        int[] inp=new int[matrix[0].length];
+        int max_rect=0;
         for(int i=0;i<matrix.length;i++){
             for(int j=0;j<matrix[0].length;j++){
                 if(matrix[i][j]=='0'){
-                    arr[j]=0;
+                    inp[j]=0;
                 }
                 else{
-                    arr[j]++;
+                    inp[j]++;
                 }
             }
-            maxrect=Math.max(maxrect,largestRectangleArea(arr));
+            max_rect=Math.max(max_rect,largestRectangleArea(inp));
         }
-        return maxrect;
+        return max_rect;
     }
 }
