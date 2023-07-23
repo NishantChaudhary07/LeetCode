@@ -14,18 +14,19 @@ class Solution {
         public int compare(ListNode l1,ListNode l2){
             return l1.val-l2.val;
         }
-            });
+        });
+        
         for(int i=0;i<lists.length;i++){
             if(lists[i]!=null){
             pq.add(lists[i]);
             }
         }
-        ListNode dummy=new ListNode();
-        ListNode temp=dummy;
-        while(!pq.isEmpty()){
+        ListNode Dummy=new ListNode();
+        ListNode temp=Dummy;
+        while(pq.size()!=0){
             ListNode rem=pq.poll();
-            dummy.next=rem;
-            dummy=dummy.next;
+            Dummy.next=rem;
+            Dummy=Dummy.next;
             if(rem.next!=null){
                 pq.add(rem.next);
             }
