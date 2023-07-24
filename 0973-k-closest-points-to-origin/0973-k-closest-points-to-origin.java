@@ -3,10 +3,10 @@ class Solution {
         int x;
         int y;
         int dist;
-        pair(int x,int y,int dist){
+        pair(int x,int y){
             this.x=x;
             this.y=y;
-            this.dist=dist;
+            dist=x*x+y*y;
         }
     }
     
@@ -19,8 +19,8 @@ class Solution {
         for(int i=0;i<points.length;i++){
             int x=points[i][0];
             int y=points[i][1];
-            int dist=x*x+y*y;
-            pq.add(new pair(x,y,dist));
+            // int dist=x*x+y*y;
+            pq.add(new pair(x,y));
         }
         
         int[][] res=new int[k][2];
