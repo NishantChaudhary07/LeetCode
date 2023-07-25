@@ -1,24 +1,30 @@
 class Solution {
-    public int[] intersect(int[] nums1, int[] nums2) {
-        int[] f1=new int[1001];
-
+    public ArrayList<Integer> helper(int[] nums1,int[] nums2){
+          ArrayList<Integer> l1=new ArrayList<>();
+        ArrayList<Integer> res=new ArrayList<>();
         for(int ele:nums1){
-            f1[ele]++;
+            l1.add(ele);
         }
-        List<Integer> lst=new ArrayList<>();
         for(int ele:nums2){
-            if(f1[ele]>0){
-              lst.add(ele);
-              f1[ele]--;
+            if(l1.contains(ele)){
+                res.add(ele);
+                l1.remove(l1.indexOf(ele));
             }
         }
-
-        int[] out=new int[lst.size()];
-        int i=0;
-        for(Integer ele:lst){
-            out[i]=ele;
-            i++;
+        return res;
+    }
+    public int[] intersect(int[] nums1, int[] nums2) {
+        ArrayList<Integer> res=new ArrayList<>();
+        if(nums1.length>nums2.length){
+            res=helper(nums1,nums2);
         }
-        return out;
+        else{
+            res=helper(nums2,nums1);
+        }
+      int[] ans=new int[res.size()];
+        for(int i=0;i<res.size();i++){
+            ans[i]=res.get(i);
+        }
+        return ans;
     }
 }
