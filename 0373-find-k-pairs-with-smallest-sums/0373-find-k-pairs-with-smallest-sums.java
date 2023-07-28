@@ -11,7 +11,7 @@ class Solution {
                         pq.poll();
                         pq.offer(curr);
                     }
-                    
+                    else break;
                 }
                 else{
                     pq.offer(curr);
