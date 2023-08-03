@@ -1,21 +1,19 @@
 class Solution {
     public int lastStoneWeight(int[] stones) {
-        List<Integer> lst=new ArrayList<>();
+        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
         for(int ele:stones){
-            lst.add(ele);
+            pq.offer(ele);
         }
-        
-        while(lst.size()>1){
-            Collections.sort(lst);
-            int size=lst.size();
-            int last=lst.get(size-1);
-            int seclast=lst.get(size-2);
-            lst.remove(size-1);
-            lst.remove(size-2);
-            if(last!=seclast){
-                lst.add(last-seclast);
+        while(pq.size()>1){
+            int x=pq.poll();
+            int y=pq.poll();
+            if(x!=y){
+                pq.offer(x-y);
             }
         }
-        return lst.size()>=1?lst.get(0):0;
+        if(pq.isEmpty()){
+            return 0;
+        }
+        return pq.poll();
     }
 }
