@@ -34,7 +34,7 @@ class Solution {
             for(int j=0;j<n;j++){
                 if(isConnected[i][j]==1 && i!=j){
                     graph.get(i).add(j);
-                    // graph.get(j+1).add(i+1);
+                    graph.get(j).add(i);
                 }
             }
         }
