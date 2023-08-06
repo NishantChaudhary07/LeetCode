@@ -1,47 +1,43 @@
 class Solution {
-    public int BFT(HashMap<Integer,List<Integer>> map){
-        int count=0;
+    public int BFT(List<List<Integer>> graph){
         Queue<Integer> q=new LinkedList<>();
         HashSet<Integer> vis=new HashSet<>();
-        for(int src:map.keySet()){
+        int comp=0;
+        for(int src=0;src<graph.size();src++){
             if(vis.contains(src)){
                 continue;
             }
-            count++;
+            comp++;
             q.add(src);
             while(!q.isEmpty()){
-                int rem=q.remove();
+                int rem=q.poll();
                 if(vis.contains(rem)){
                     continue;
                 }
                 vis.add(rem);
-                for(int nbr:map.get(rem)){
+                for(int nbr:graph.get(rem)){
                     if(!vis.contains(nbr)){
                         q.add(nbr);
                     }
                 }
             }
         }
-        return count;
+        return comp-1;
+        
     }
-    
     public int makeConnected(int n, int[][] connections) {
         if(connections.length<n-1){
             return -1;
         }
-        HashMap<Integer,List<Integer>> map=new HashMap<>();
-        for(int i=0;i<n;i++){
-            map.put(i,new ArrayList<>());
-        }
-        
-        for(int i=0;i<connections.length;i++){
-            int v1=connections[i][0];
-            int v2=connections[i][1];
             
-//            
-            map.get(v1).add(v2);
-            map.get(v2).add(v1);
+        List<List<Integer>> graph=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            graph.add(i,new ArrayList<>());
         }
-        return BFT(map)-1;
+        for(int[] arr:connections){
+            graph.get(arr[0]).add(arr[1]);
+            graph.get(arr[1]).add(arr[0]);
+        }
+        return BFT(graph);
     }
 }
