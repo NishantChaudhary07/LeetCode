@@ -1,28 +1,26 @@
 class Solution {
-    public void markIsland(char[][] grid,int nr,int nc,int cr,int cc){
-        if(cr<0 || cr>=nr || cc<0 || cc>=nc ||  grid[cr][cc]=='0'){
+    public void markIslands(char[][] grid,int cr,int cc,int tr,int tc){
+        if(cr<0 || cc<0 || cr>=tr || cc>=tc || grid[cr][cc]=='0'){
             return;
         }
         grid[cr][cc]='0';
-        
-        markIsland(grid,nr,nc,cr+1,cc);
-        markIsland(grid,nr,nc,cr-1,cc);
-        markIsland(grid,nr,nc,cr,cc+1);
-        markIsland(grid,nr,nc,cr,cc-1);
+        markIslands(grid,cr-1,cc,tr,tc);
+        markIslands(grid,cr+1,cc,tr,tc);
+        markIslands(grid,cr,cc-1,tr,tc);
+        markIslands(grid,cr,cc+1,tr,tc);
     }
     public int numIslands(char[][] grid) {
-        int nr=grid.length;
-        int nc=grid[0].length;
-        int no_of_Islands=0;
-        
-        for(int i=0;i<nr;i++){
-            for(int j=0;j<nc;j++){
+        int tr=grid.length;
+        int tc=grid[0].length;
+        int islands=0;
+        for(int i=0;i<tr;i++){
+            for(int j=0;j<tc;j++){
                 if(grid[i][j]=='1'){
-                    markIsland(grid,nr,nc,i,j);
-                   no_of_Islands++; 
+                    markIslands(grid,i,j,tr,tc);
+                    islands++;
                 }
             }
         }
-        return no_of_Islands;
+        return islands;
     }
 }
