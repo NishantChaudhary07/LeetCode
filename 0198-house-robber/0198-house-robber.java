@@ -1,20 +1,18 @@
 class Solution {
-    public int RobDP(int[] nums,int i,int[] dp){
-        if(i>=nums.length){
+    public int maxAmt(int[] nums,int idx,int[] dp){
+        if(idx>=nums.length){
             return 0;
         }
-        
-        if(dp[i]!=-1){
-            return dp[i];
+        if(dp[idx]!=-1){
+            return dp[idx];
         }
-        
-        int rob=nums[i]+RobDP(nums,i+2,dp);
-        int dont_rob=RobDP(nums,i+1,dp);
-        return dp[i]=Math.max(rob,dont_rob);
+        int rob=nums[idx]+maxAmt(nums,idx+2,dp);
+        int dontRob=maxAmt(nums,idx+1,dp);
+        return dp[idx]=Math.max(rob,dontRob);
     }
     public int rob(int[] nums) {
         int[] dp=new int[nums.length];
         Arrays.fill(dp,-1);
-        return RobDP(nums,0,dp);
+        return maxAmt(nums,0,dp);
     }
 }
