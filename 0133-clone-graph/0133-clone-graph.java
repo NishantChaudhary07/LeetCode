@@ -20,20 +20,19 @@ class Node {
 
 class Solution {
     public Node cloneGraph(Node node) {
-        if(node==null)
+        if(node==null){
             return null;
+        }
         HashMap<Node,Node> map=new HashMap<>();
-        Queue<Node> que=new LinkedList<>();
-        
-        que.add(node);
+        Queue<Node> q=new LinkedList<>();
+        q.add(node);
         map.put(node,new Node(node.val,new ArrayList<>()));
-        while(!que.isEmpty()){
-            Node rem=que.remove();
-            
+        while(!q.isEmpty()){
+            Node rem=q.poll();
             for(Node nbr:rem.neighbors){
                 if(!map.containsKey(nbr)){
                     map.put(nbr,new Node(nbr.val,new ArrayList<>()));
-                    que.add(nbr);
+                    q.add(nbr);
                 }
                 map.get(rem).neighbors.add(map.get(nbr));
             }
