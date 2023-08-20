@@ -29,14 +29,6 @@ public class Main {
 }
 
 // } Driver Code Ends
-
-
-
-
-//User function Template for Java
-
-
-
 class Solution {
     int count(int[] arr, int n, int x) {
         // code here
@@ -50,17 +42,9 @@ class Solution {
                 break;
             }
             else if(arr[mid]<x){
-                while(mid<n-1 && arr[mid+1]==arr[mid])
-                {
-                    mid++;
-                }
                 start=mid+1;
             }
             else{
-                while(mid>0 && arr[mid-1]==arr[mid])
-                {
-                    mid--;
-                }
                 end=mid-1;
             }
         }
