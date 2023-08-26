@@ -1,26 +1,17 @@
 class Solution {
-    public int helper(int amt,int[] coins,int idx,int[][] dp){
-        if(idx>=coins.length){
-            return 0;
-        }
-        if(amt==0){
-            return 1;
-        }
-        if(dp[amt][idx]!=-1){
-            return dp[amt][idx];
-        }
-        int inc=0;
-        if(amt>=coins[idx]){
-            inc=helper(amt-coins[idx],coins,idx,dp);
-        }
-        int dont_inc=helper(amt,coins,idx+1,dp);
-        return dp[amt][idx]=inc+dont_inc;
-    }
     public int change(int amount, int[] coins) {
-        int[][] dp=new int[amount+1][coins.length];
-        for(int[] arr:dp){
-            Arrays.fill(arr,-1);
+        int[][] dp=new int[amount+1][coins.length+1];
+        Arrays.fill(dp[0],1);
+        for(int amt=1;amt<dp.length;amt++){
+            for(int i=1;i<dp[0].length;i++){
+                int inc=0,exc=0;
+                if(amt-coins[i-1]>=0){
+                    inc=dp[amt-coins[i-1]][i];
+                }
+                exc=dp[amt][i-1];
+                dp[amt][i]=inc+exc;
+            }
         }
-        return helper(amount,coins,0,dp);
+        return dp[amount][coins.length];
     }
 }
