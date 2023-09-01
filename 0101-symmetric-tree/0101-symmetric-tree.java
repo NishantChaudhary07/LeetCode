@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    public boolean help(TreeNode root1,TreeNode root2){
+    public boolean symmetric(TreeNode root1,TreeNode root2){
         if(root1==null && root2==null){
             return true;
         }
@@ -24,10 +24,9 @@ class Solution {
         if(root1.val!=root2.val){
             return false;
         }
-        
-        return help(root1.left,root2.right) && help(root1.right,root2.left);
+        return symmetric(root1.left,root2.right) && symmetric(root1.right,root2.left);
     }
     public boolean isSymmetric(TreeNode root) {
-        return help(root,root);
+        return symmetric(root,root);
     }
 }
