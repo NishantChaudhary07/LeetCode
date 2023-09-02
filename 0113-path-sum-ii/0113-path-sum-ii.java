@@ -14,31 +14,27 @@
  * }
  */
 class Solution {
-    private void path(TreeNode root,int targetSum,List<List<Integer>> lst,List<Integer> lst1){
-     if(root==null){
+    public void path(TreeNode root,int target,List<Integer> lst,List<List<Integer>>res){
+        if(root==null){
             return;
-        }  
-        
-     if(root.left==null && root.right==null){
-         if(targetSum-root.val==0){
-             lst1.add(root.val);
-             lst.add(new ArrayList<Integer>(lst1));
-             lst1.remove(lst1.size()-1);
-         }
-         return;
-         }
-        
-         lst1.add(root.val);
-         path(root.left,targetSum-root.val,lst,lst1);
-         path(root.right,targetSum-root.val,lst,lst1);
-        lst1.remove(lst1.size()-1);
-         
-
+        }
+        if(root.left==null && root.right==null){
+            if(target-root.val==0){
+                lst.add(root.val);
+                res.add(new ArrayList<>(lst));
+                lst.remove(lst.size()-1);
+            }
+            return;
+        }
+        lst.add(root.val);
+        path(root.left,target-root.val,lst,res);
+        path(root.right,target-root.val,lst,res);
+        lst.remove(lst.size()-1);
     }
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        List<List<Integer>> lst=new ArrayList<>();
-        List<Integer> lst1=new ArrayList<>();
-        path(root,targetSum,lst,lst1);
-        return lst;
+        List<List<Integer>> res=new ArrayList<>();
+        List<Integer> lst=new ArrayList<>();
+        path(root,targetSum,lst,res);
+        return res;
     }
 }
