@@ -14,22 +14,22 @@
  * }
  */
 class Solution {
-    private class Diapair{
-        int height=0;
+    public class pair{
+        int ht;
         boolean isbal=true;
     }
-    public Diapair help(TreeNode root){
+    public pair BalancedTree(TreeNode root){
         if(root==null){
-            return new Diapair();
+            return new pair();
         }
-        Diapair left=help(root.left);
-        Diapair right=help(root.right);
-        Diapair dp=new Diapair();
-        dp.height=Math.max(left.height,right.height)+1;
-        dp.isbal=right.isbal&&left.isbal&&(Math.abs(left.height-right.height)<=1);
-        return dp;
+        pair left=BalancedTree(root.left);
+        pair right=BalancedTree(root.right);
+        pair newpair=new pair();
+        newpair.ht=Math.max(left.ht,right.ht)+1;
+        newpair.isbal= left.isbal && right.isbal && Math.abs(left.ht-right.ht)<=1;
+        return newpair;
     }
     public boolean isBalanced(TreeNode root) {
-        return help(root).isbal;
+        return BalancedTree(root).isbal;
     }
 }
