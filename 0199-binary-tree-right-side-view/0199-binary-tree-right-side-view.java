@@ -14,20 +14,20 @@
  * }
  */
 class Solution {
-    public List<Integer> rightView(TreeNode root,List<Integer> lst,int curr){
+    public void rightView(TreeNode root,List<Integer> res,int curr){
         if(root==null){
-            return new ArrayList<>();
+            return;
         }
-        if(curr>lst.size()){
-            lst.add(root.val);
+        if(curr>res.size()){
+            res.add(root.val);
         }
-        rightView(root.right,lst,curr+1);
-        rightView(root.left,lst,curr+1);
-        return lst;
+        rightView(root.right,res,curr+1);
+        rightView(root.left,res,curr+1);
+        
     }
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> lst=new ArrayList<>();
-        rightView(root,lst,1);
-        return lst;
+       List<Integer> res=new ArrayList<>(); 
+        rightView(root,res,1);
+        return res;
     }
 }
