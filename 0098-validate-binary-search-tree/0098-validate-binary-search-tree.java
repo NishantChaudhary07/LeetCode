@@ -35,6 +35,8 @@ class Solution {
         }
         else{
             newpair.isBst=false;
+            newpair.max=Math.max(root.val,Math.max(right.max,left.max));
+            newpair.min=Math.min(root.val,Math.min(left.min,right.min));
         }
         return newpair;
     }
