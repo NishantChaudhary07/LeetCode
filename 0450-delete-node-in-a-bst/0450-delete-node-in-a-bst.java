@@ -14,36 +14,33 @@
  * }
  */
 class Solution {
-    public int min(TreeNode root){
-        if(root==null){
+    public int searchMin(TreeNode node){
+        if(node==null){
             return Integer.MAX_VALUE;
         }
-        int left=min(root.left);
-        return Math.min(root.val,left);
+        return Math.min(node.val,searchMin(node.left));
     }
     public TreeNode deleteNode(TreeNode root, int key) {
         if(root==null){
             return null;
         }
-        if(root.val<key){
-            root.right=deleteNode(root.right,key);
-        }
-        else if(root.val>key){
+        if(key<root.val){
             root.left=deleteNode(root.left,key);
+        }
+        else if(key>root.val){
+            root.right=deleteNode(root.right,key);
         }
         else{
             if(root.left==null){
                 return root.right;
             }
-            
             else if(root.right==null){
                 return root.left;
             }
-            
             else{
-                int min=min(root.right);
-                root.right=deleteNode(root.right,min);
-                root.val=min;
+            int min=searchMin(root.right);
+            root.val=min;
+            root.right=deleteNode(root.right,min);
             }
         }
         return root;
