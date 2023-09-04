@@ -14,32 +14,31 @@
  * }
  */
 class Solution {
-    private class Diapair{
+    public class pair{
         boolean isBst=true;
-        long min=Long.MAX_VALUE;
         long max=Long.MIN_VALUE;
-    }
-    public Diapair validBst(TreeNode root){
-        if(root==null){
-            return new Diapair();
-        }
-        Diapair left=validBst(root.left);
-        Diapair right=validBst(root.right);
-        Diapair dp=new Diapair();
-        if(left.isBst==true && right.isBst==true && left.max<root.val && right.min>root.val){
-            dp.isBst=true;
-            dp.min=Math.min(root.val,left.min);
-            dp.max=Math.max(root.val,right.max);
-            return dp;
-        }
-        
-        dp.isBst=false;
-        dp.min=Math.min(root.val,Math.min(left.min,right.min));
-        dp.max=Math.max(root.val,Math.max(left.max,right.max));
-        return dp;
+        long min=Long.MAX_VALUE;
     }
     
+    public pair isBSTValid(TreeNode root){
+        if(root==null){
+            return new pair();
+        }
+        pair left=isBSTValid(root.left);
+        pair right=isBSTValid(root.right);
+        pair newpair=new pair();
+        if(left.isBst && right.isBst && left.max<root.val && right.min>root.val){
+            newpair.isBst=true;
+            newpair.max=Math.max(root.val,right.max);
+            newpair.min=Math.min(root.val,left.min);
+            return newpair;
+        }
+        else{
+            newpair.isBst=false;
+        }
+        return newpair;
+    }
     public boolean isValidBST(TreeNode root) {
-        return validBst(root).isBst;
+       return isBSTValid(root).isBst;
     }
 }
