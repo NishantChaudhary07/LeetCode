@@ -31,7 +31,6 @@ class Solution {
             newpair.isBst=true;
             newpair.max=Math.max(root.val,right.max);
             newpair.min=Math.min(root.val,left.min);
-            return newpair;
         }
         else{
             newpair.isBst=false;
