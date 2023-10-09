@@ -10,6 +10,9 @@ class Solution {
                 }
                 res[1]=i;
             }
+            if(first==true && nums[i]!=target){
+                break;
+            }
         }
         return res;
     }
