@@ -1,23 +1,23 @@
 class Solution {
-    public int mps(int[][] grid,int row,int col,int[][] dp){
-        if(row==grid.length-1 && col==grid[0].length-1){
-            return grid[row][col];
+    int helper(int[][] grid,int r,int c,int[][] dp){
+        if(r==grid.length-1 && c==grid[0].length-1){
+            return grid[r][c];
         }
-        if(row==grid.length || col==grid[0].length){
+        if(r==grid.length || c==grid[0].length){
             return Integer.MAX_VALUE;
         }
-        if(dp[row][col]!=-1){
-            return dp[row][col];
+        if(dp[r][c]!=-1){
+            return dp[r][c];
         }
-        int right=mps(grid,row,col+1,dp);
-        int down=mps(grid,row+1,col,dp);
-        return dp[row][col]=Math.min(right,down)+grid[row][col];
+        int right=helper(grid,r,c+1,dp);
+        int down=helper(grid,r+1,c,dp);
+        return dp[r][c]=Math.min(right,down)+grid[r][c];
     }
     public int minPathSum(int[][] grid) {
         int[][] dp=new int[grid.length][grid[0].length];
         for(int[] arr:dp){
             Arrays.fill(arr,-1);
         }
-        return mps(grid,0,0,dp);
+        return helper(grid,0,0,dp);
     }
 }
