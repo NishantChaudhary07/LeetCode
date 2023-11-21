@@ -1,12 +1,12 @@
 class Solution {
-    public int rev(int num){
-        String st=num+"";
-        String nstr="";
-        for(int i=0;i<st.length();i++){
-            nstr=st.charAt(i)+nstr;
+ public int rev(int num) {
+        int result = 0;
+        while (num > 0) {
+            result = result * 10 + num % 10;
+            num /= 10;
         }
-         return Integer.parseInt(nstr);
-    }
+     return result;
+ }
     public int countNicePairs(int[] nums) {
         int count=0;
         Map<Integer,Integer> map=new HashMap<>();
