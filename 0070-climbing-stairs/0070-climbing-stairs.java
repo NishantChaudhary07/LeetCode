@@ -1,20 +1,17 @@
 class Solution {
-    private int climbDp(int n,int[] dp){
-        if(n==1){
+    public int helper(int n,int curr,int[] dp){
+        if(curr+1>n || curr+2>n)
+        {
             return 1;
         }
-        if(n==2){
-            return 2;
+        if(dp[curr]!=-1){
+            return dp[curr];
         }
-        dp[1]=1;
-        dp[2]=2;
-        for(int i=3;i<=n;i++){
-            dp[i]=dp[i-1]+dp[i-2];
-        }
-        return dp[n];
+        return dp[curr]=helper(n,curr+1,dp)+helper(n,curr+2,dp);
     }
     public int climbStairs(int n) {
-        int[] dp=new int[n+1];
-        return climbDp(n,dp);
+        int[] dp=new int[n];
+        Arrays.fill(dp,-1);
+        return helper(n,0,dp);
     }
 }
