@@ -1,22 +1,22 @@
 class Solution {
-    public static void combination(int[] candidates,int idx,int currsum,int target,List<Integer> lst,List<List<Integer>> res){
-        if(currsum>target){
+    public void helper(int[] can,int t,List<List<Integer>> res,List<Integer> lst,int idx){
+        if(t<0){
             return;
         }
-        if(currsum==target){
+        if(t==0){
             res.add(new ArrayList<>(lst));
+            return;
         }
-        for(int i=idx;i<candidates.length;i++){
-            lst.add(candidates[i]);
-            combination(candidates,i,currsum+candidates[i],target,lst,res);
+        for(int i=idx;i<can.length;i++){
+            lst.add(can[i]);
+            helper(can,t-can[i],res,lst,i);
             lst.remove(lst.size()-1);
         }
-        
     }
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> res=new ArrayList<>();
         List<Integer> lst=new ArrayList<>();
-        combination(candidates,0,0,target,lst,res);
+        helper(candidates,target,res,lst,0);
         return res;
     }
 }
