@@ -1,35 +1,24 @@
 class Solution {
-    public int lcs(String s1,String s2,int i,int j,int[][] dp){
-        if(i== s1.length() || j==s2.length()){
+    public int lcs(String t1,String t2,int idx1,int idx2,int[][] dp){
+        if(idx1>=t1.length() || idx2>=t2.length()){
             return 0;
         }
-        if(dp[i][j]!=-1){
-            return dp[i][j];
+        if(dp[idx1][idx2]!=-1){
+            return dp[idx1][idx2];
         }
-        int ignore_both=0;
-        if(s1.charAt(i)==s2.charAt(j)){
-            ignore_both=1+lcs(s1,s2,i+1,j+1,dp);
+        int ig12=0;
+        if(t1.charAt(idx1)==t2.charAt(idx2)){
+            ig12=1+lcs(t1,t2,idx1+1,idx2+1,dp);
         }
-        int ignore_first=lcs(s1,s2,i+1,j,dp);
-        int ignore_sec=lcs(s1,s2,i,j+1,dp);
-        return dp[i][j]=Math.max(ignore_both,Math.max(ignore_first,ignore_sec));
+        int ig1=lcs(t1,t2,idx1+1,idx2,dp);
+        int ig2=lcs(t1,t2,idx1,idx2+1,dp);
+        return dp[idx1][idx2]=Math.max(ig12,Math.max(ig1,ig2));
     }
     public int longestCommonSubsequence(String text1, String text2) {
-        int[][] dp=new int[text1.length()+1][text2.length()+1];
-        for(int i=1;i<dp.length;i++){
-            for(int j=1;j<dp[0].length;j++){
-                int ans=0;
-                if(text1.charAt(i-1)==text2.charAt(j-1)){
-                    ans=1+dp[i-1][j-1];
-                }
-                else{
-                    int igf=dp[i-1][j];
-                    int igs=dp[i][j-1];
-                    ans=Math.max(igf,igs);
-                }
-                dp[i][j]=ans;
-            }
+        int[][] dp=new int[text1.length()][text2.length()];
+        for(int[] arr:dp){
+            Arrays.fill(arr,-1);
         }
-        return dp[dp.length-1][dp[0].length-1];
+        return lcs(text1,text2,0,0,dp);
     }
 }
