@@ -1,22 +1,33 @@
 class Solution {
     public int countSubstrings(String s) {
         int count=0;
-      for(int axis=0;axis<s.length();axis++){
-          for(int orbit=0;orbit<s.length() && axis-orbit>=0 && axis+orbit<s.length();orbit++){
-              if(s.charAt(axis-orbit)!=s.charAt(axis+orbit)){
-                  break;
-              }
-              count++;
-          }
-      } 
-         for(double axis=0.5;axis<s.length();axis++){
-          for(double orbit=0.5;orbit<s.length() && axis-orbit>=0 && axis+orbit<s.length();orbit++){
-              if(s.charAt((int)(axis-orbit))!=s.charAt((int)(axis+orbit))){
-                  break;
-              }
-              count++;
-          }
-      }
-                 return count;
+        for(int i=0;i<s.length();i++){
+            int l=i,r=i;
+            while(l>=0 && r<s.length()){
+                if(s.charAt(l)!=s.charAt(r)){
+                    break;
+                }
+                else{
+                    count++;
+                }
+                l--;
+                r++;
+            }
+        }
+        
+        for(int i=1;i<s.length();i++){
+            int l=i-1,r=i;
+            while(l>=0 && r<s.length()){
+                if(s.charAt(l)!=s.charAt(r)){
+                    break;
+                }
+                else{
+                    count++;
+                }
+                l--;
+                r++;
+            }
+        }
+        return count;
     }
 }
