@@ -1,17 +1,17 @@
 class Solution {
-    int helper(int cr,int cc,int tr,int tc,int[][] dp){
-        if(cr==tr || cc==tc){
+    public int helper(int r,int c,int m,int n,int[][] dp){
+        if(r>=m || c>=n){
             return 0;
         }
-        if(cr==tr-1 && cc==tc-1){
+        if(r==m-1 && c==n-1){
             return 1;
         }
-        if(dp[cr][cc]!=-1){
-            return dp[cr][cc];
+        if(dp[r][c]!=-1){
+            return dp[r][c];
         }
-        int right=helper(cr,cc+1,tr,tc,dp);
-        int down=helper(cr+1,cc,tr,tc,dp);
-        return dp[cr][cc]=right+down;
+        int right=helper(r,c+1,m,n,dp);
+        int down=helper(r+1,c,m,n,dp);
+        return dp[r][c]=right+down;
     }
     public int uniquePaths(int m, int n) {
         int[][] dp=new int[m][n];
